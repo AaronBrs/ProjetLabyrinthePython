@@ -1,0 +1,99 @@
+PROJET LABYRINTHE
+
+1 semaine (Chef de projet + SDD)
+
+1 semaine (3 premiers fichiers fini (2 obligatoires) avant les vacances)
+
+2 semaines vacances
+
+1 semaine
+
+1 semaine FULL Projet avec soutenance 15 minutes vendredi
+
+
+les fonctions différentes des constructeurs, getters, setters n'utilisent que l'API
+
+-------------------------
+|		   API		    |
+-------------------------
+|		  carte	  		|
+|		 joueurs 		|
+|	   listeJoueurs	    |
+|		 matrice		|
+|		 plateau		|
+-------------------------
+
+labyrinthe
+
+Fiches Individuelles pour chaque membres du groupe à donner au CDP
+Contenu : NOM PRENOM CEQUEJAIFAIT TEMPSPASSE Fini/en cours Total/semaine
+
+Tout regroupé dans 1 même fichier à rendre à chaque fin de période
+
+Créer un TRELLO pour organiser
+Créer un git
+DISCORD/Whats'app pour communiquer
+Créer diagramme Gantt
+
+-------------------------
+|		NOTATION	    |
+-------------------------
+Version classique /15
+
+Version objet /5
+
++ Bonus possible une fois que la version classique est complètement terminée
+
+Projet
+Méthode Inondation (Marque tout les chemins possibles) 
+
+Matrice de taille 9x9 remplie de 0 sauf la case (0,0) qui est à 1
+
+Ligne par ligne
+	Si case est couloir
+		On regarde les voisins directs (4) de cette case
+		Si un des voisins directs est marqué à 1
+			On "Marque" 1 dans la case actuelle
+	Case suivante
+Si le nouveau calque est différent du calque initial
+	On recommence le processus entièrement
+Sinon FIN
+
+EXEMPLE : Dans notre cas, on répète le processus 4 fois dont 1 qui sera une vérification (3 utiles seulement)
+
+
+
+
+
+Chemin le plus court
+
+Pour chaque case
+Si la case est marqué à 1 (val)
+	On ajoute 1 à la valeur précédent la case sur notre case actuelle (on obtient le compteur de case nécessaire pour sortir du labyrinthe) (variable marque)
+On remonte le labyrinthe en faisant -1 pour savoir quel est le chemin le plus court
+
+val et marque sont des paramètres, elles changent au cours de la fonction
+Si la case d'avant a été marqué par val:
+	on marque la case actuelle par marque
+	marque+=1
+	val+=1
+
+Accessibilité
+
+Existe-t-il un chemin entre le point de départ et l'arrivée
+
+Accès à l'indice de la case au dessus i-NbColonnes
+Accès à l'indice de la case en dessous i+NbColonnes
+
+
+Coordonnées
+
+case actuel = (x,y)
+case haut = (x+1,y)
+case bas = (x-1,y)
+case droite = (x,y+1)
+case gauche = (x,y-1)
+
+Initialisation du calque :
+nvMatrice=Matrice(9,9) #Matrice de 9X9 nulle
+setVal(nvMatrice,0,0,1)
