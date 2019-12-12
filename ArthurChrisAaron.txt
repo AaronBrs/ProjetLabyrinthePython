@@ -97,3 +97,18 @@ case gauche = (x,y-1)
 Initialisation du calque :
 nvMatrice=Matrice(9,9) #Matrice de 9X9 nulle
 setVal(nvMatrice,0,0,1)
+
+
+
+Définition de la SDD
+
+
+Liste de joueurs {'Nom du joueur' : [n°, ordre] , 'Nom du joueur 2' :  [n°, ordre] , ...}
+
+Joueur ('Nom du joueur',[int,int,int,...])
+
+Nom et n° invariables
+ordre variable
+
+
+Carte [Bool, Bool, Bool ,Bool, int, Liste]
