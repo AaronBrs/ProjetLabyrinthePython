@@ -103,12 +103,36 @@ setVal(nvMatrice,0,0,1)
 Définition de la SDD
 
 
-Liste de joueurs {'Nom du joueur' : [n°, ordre] , 'Nom du joueur 2' :  [n°, ordre] , ...}
 
-Joueur ('Nom du joueur',[int,int,int,...])
+
+Carte [Bool, Bool, Bool ,Bool, int, Liste]
+
+Joueur ('Nom du joueur',[n°trésor 1, n°trésor 2, n°trésor 3,...])
+
+Liste de joueurs {'Nom du joueur 1' : [n° joueur 1, ordre], 'Nom du joueur 2' :  [n° joueur 2, ordre], ...}
 
 Nom et n° invariables
 ordre variable
 
 
-Carte [Bool, Bool, Bool ,Bool, int, Liste]
+Mail :
+
+Bonjour Madame,
+
+Je serais le chef de projet de l'équipe composé de Chris BOUDZOUMOU, Arthur DUVEAU et moi-même. Nous avons fait le choix d'utiliser les structures de données suivantes pour notre projet.
+Une carte, de type liste, contient 4 booléens pour la présence des murs, un int pour le numero du trésor présent et une liste qui contient un ou plusieurs entiers qui correspondent aux numéros des pions présents sur la case.
+Un joueur, de type tuple, contient une chaîne de caractère pour son nom, et une liste d'entiers pour les trésors qu'il doit trouver.
+Une liste de joueur, de type dictionnaire, contient une clé pour le nom du joueur et a pour valeur une liste de 2 entiers correspondant au numéro du joueur à son ordre de passage. Voici donc à quoi pourraient ressembler ces structures de données :
+
+Pour une carte : [MurNord, MurEst, MurSud, MurOuest, n°trésor, [n°joueur 1, n° joueur 2]]
+
+Pour un joueur : ("Nom du joueur", [n°trésor 1, n°trésor 2, n°trésor 3, ...])
+
+Pour une liste de joueurs : {'Nom du joueur 1' : [n° joueur 1, ordre], 'Nom du joueur 2' :  [n° joueur 2, ordre], ...}
+
+Si vous avez des suggestions à nous faire, ou des remarques à apporter, merci de m'en faire part.
+Je vous ferais part du fichier contenant les fiches individuelles au plus vite.
+
+Cordialement,
+
+Aaron BROSSEAU
