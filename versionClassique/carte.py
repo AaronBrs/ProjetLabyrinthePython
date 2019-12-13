@@ -27,49 +27,56 @@ def Carte( nord, est, sud, ouest, tresor=0, pions=[]):
     tresor est le numéro du trésor qui se trouve sur la carte (0 s'il n'y a pas de trésor)
     pions est la liste des pions qui sont posés sur la carte (un pion est un entier entre 1 et 4)
     """
-    pass
-
+    carte=[nord,est,sud,ouest,tresor,pions]
+    res carte
 def estValide(c):
     """
     retourne un booléen indiquant si la carte est valide ou non c'est à dire qu'elle a zéro un ou deux murs
     paramètre: c une carte
     """
-    pass
+    cptMur=0
+    res=False
+    for indice in range(3):#Pour les 4 premiers éléments d'une carte (Les 4 murs)
+        if c[indice] :
+            cptMur+=1
+    if cptMur < 3:
+        res=True
+    return res
 
 def murNord(c):
     """
     retourne un booléen indiquant si la carte possède un mur au nord
     paramètre: c une carte
     """
-    pass
+    return c[0]:
 
 def murSud(c):
     """
     retourne un booléen indiquant si la carte possède un mur au sud
     paramètre: c une carte
     """
-    pass
+    return c[2]
 
 def murEst(c):
     """
     retourne un booléen indiquant si la carte possède un mur à l'est
     paramètre: c une carte
     """
-    pass
+    return c[1]
 
 def murOuest(c):
     """
     retourne un booléen indiquant si la carte possède un mur à l'ouest
     paramètre: c une carte
     """
-    pass
+    return c[3]
 
 def getListePions(c):
     """
     retourne la liste des pions se trouvant sur la carte
     paramètre: c une carte
     """
-    pass
+    return c[5]
 
 def setListePions(c,listePions):
     """
@@ -78,14 +85,14 @@ def setListePions(c,listePions):
                 listePions: la liste des pions à poser
     Cette fonction ne retourne rien mais modifie la carte
     """
-    pass
+    c[5]=listePions
 
 def getNbPions(c):
     """
     retourne le nombre de pions se trouvant sur la carte
     paramètre: c une carte
     """
-    pass
+    return len(c[5])
 
 def possedePion(c,pion):
     """
@@ -93,7 +100,11 @@ def possedePion(c,pion):
     paramètres: c une carte
                 pion un entier compris entre 1 et 4
     """
-    pass
+    if pion in c[5]:
+        res=True
+    else:
+        res=False
+    return res
 
 
 def getTresor(c):
@@ -101,7 +112,7 @@ def getTresor(c):
     retourne la valeur du trésor qui se trouve sur la carte (0 si pas de trésor)
     paramètre: c une carte
     """
-    pass
+    return c[4]
 
 def prendreTresor(c):
     """
@@ -109,7 +120,10 @@ def prendreTresor(c):
     paramètre: c une carte
     résultat l'entier représentant le trésor qui était sur la carte
     """
-    pass
+    res=c[4]
+    c[4]=0
+    return res
+
 def mettreTresor(c,tresor):
     """
     met le trésor passé en paramètre sur la carte et retourne la valeur de l'ancien trésor
@@ -117,7 +131,9 @@ def mettreTresor(c,tresor):
                 tresor un entier positif
     résultat l'entier représentant le trésor qui était sur la carte
     """
-    pass
+    res=c[4]
+    c[4]=tresor
+    return res
 
 def prendrePion(c, pion):
     """
@@ -126,6 +142,10 @@ def prendrePion(c, pion):
                 pion un entier compris entre 1 et 4
     Cette fonction modifie la carte mais ne retourne rien
     """
+    for indice in range(len(c[5])):
+        if c[5][i]=pion:
+            c[5].pop(i)
+
     pass
 
 def poserPion(c, pion):
@@ -135,7 +155,9 @@ def poserPion(c, pion):
                 pion un entier compris entre 1 et 4
     Cette fonction modifie la carte mais ne retourne rien
     """
-    pass
+    if pion not in c[5]:
+        c[5].append(pion)
+
 
 def tournerHoraire(c):
     """
@@ -143,7 +165,11 @@ def tournerHoraire(c):
     paramètres: c une carte
     Cette fonction modifie la carte mais ne retourne rien    
     """
-    pass
+    aux=c[0]
+    c[0]=c[3]
+    c[1]=aux
+    c[2]=c[1]
+    c[3]=c[2]
 
 def tournerAntiHoraire(c):
     """
@@ -151,7 +177,12 @@ def tournerAntiHoraire(c):
     paramètres: c une carte
     Cette fonction modifie la carte mais ne retourne rien    
     """
-    pass
+    aux=c[0]
+    c[0]=c[1]
+    c[1]=c[2]
+    c[2]=c[3]
+    c[3]=aux
+    
 def tourneAleatoire(c):
     """
     faire tourner la carte d'un nombre de tours aléatoire
