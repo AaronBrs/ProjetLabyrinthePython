@@ -28,7 +28,7 @@ def Carte( nord, est, sud, ouest, tresor=0, pions=[]):
     pions est la liste des pions qui sont posés sur la carte (un pion est un entier entre 1 et 4)
     """
     carte=[nord,est,sud,ouest,tresor,pions]
-    res carte
+    return carte
 def estValide(c):
     """
     retourne un booléen indiquant si la carte est valide ou non c'est à dire qu'elle a zéro un ou deux murs
