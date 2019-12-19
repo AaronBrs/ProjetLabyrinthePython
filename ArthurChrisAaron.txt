@@ -103,8 +103,6 @@ setVal(nvMatrice,0,0,1)
 Définition de la SDD
 
 
-
-
 Carte [Bool, Bool, Bool ,Bool, int, Liste]
 
 Joueur ('Nom du joueur',[n°trésor 1, n°trésor 2, n°trésor 3,...])
@@ -137,3 +135,8 @@ Concernant la répartition des tâches, Arthur se chargera du fichier joueurs.py
 Cordialement,
 
 Aaron BROSSEAU
+
+Modication du SDD :
+
+Ajout des listes de trésors dans la liste de joueurs
+N°carte retiré dans le constructeur des cartes
