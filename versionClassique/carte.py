@@ -29,26 +29,30 @@ def Carte( nord, est, sud, ouest, tresor=0, pions=[]):
     """
     carte=[nord,est,sud,ouest,tresor,pions]
     return carte
-def estValide(c):
+def estValide(c): #à revoir
     """
     retourne un booléen indiquant si la carte est valide ou non c'est à dire qu'elle a zéro un ou deux murs
     paramètre: c une carte
     """
     cptMur=0
-    res=False
-    for indice in range(3):#Pour les 4 premiers éléments d'une carte (Les 4 murs)
-        if c[indice] :
-            cptMur+=1
-    if cptMur < 3:
-        res=True
-    return res
-
+    valide=False #La carte n'est pas valide par défaut
+    if c[0]:
+        cptMur+=1
+    if c[1]:
+        cptMur+=1
+    if c[2]:
+        cptMur+=1
+    if c[3]:
+        cptMur+=1
+    if (cptMur < 3): #S'il y a moins de 3 murs
+        valide = True #La carte est valide
+    return valide
 def murNord(c):
     """
     retourne un booléen indiquant si la carte possède un mur au nord
     paramètre: c une carte
     """
-    return c[0]:
+    return c[0]
 
 def murSud(c):
     """
@@ -143,10 +147,8 @@ def prendrePion(c, pion):
     Cette fonction modifie la carte mais ne retourne rien
     """
     for indice in range(len(c[5])):
-        if c[5][i]=pion:
-            c[5].pop(i)
-
-    pass
+        if c[5][indice]==pion:
+            c[5].pop(indice)
 
 def poserPion(c, pion):
     """
@@ -161,15 +163,16 @@ def poserPion(c, pion):
 
 def tournerHoraire(c):
     """
+    NESO
     fait tourner la carte dans le sens horaire
     paramètres: c une carte
     Cette fonction modifie la carte mais ne retourne rien    
     """
     aux=c[0]
     c[0]=c[3]
-    c[1]=aux
-    c[2]=c[1]
     c[3]=c[2]
+    c[2]=c[1]
+    c[1]=aux
 
 def tournerAntiHoraire(c):
     """
@@ -189,7 +192,11 @@ def tourneAleatoire(c):
     paramètres: c une carte
     Cette fonction modifie la carte mais ne retourne rien    
     """
-    pass
+    nbTours = random.randint(1,3)
+    i=0
+    while i < nbTours:
+        tournerHoraire(c)
+        i+=1
 
 def coderMurs(c):
     """
@@ -203,7 +210,58 @@ def coderMurs(c):
     paramètre c une carte
     retourne un entier indice du caractère semi-graphique de la carte
     """
-    pass
+    #Codage de la carte
+    code = 0
+    if murNord(c):
+        code += 1
+    if murEst(c):
+        code += 10
+    if murSud(c):
+        code += 100
+    if murOuest(c):
+        code += 1000
+    #Vérifier l'utilité de cette étape
+    i=0
+    fini = False
+    while i <= code and not fini:
+        if code == i:
+            fini = True
+            res=i
+        i+=1
+    ##############
+    if res == 0:
+        indice = 0
+    if res == 1:
+        indice = 1
+    if res == 10:
+        indice = 2
+    if res == 11:
+        indice = 3
+    if res == 100:
+        indice = 4
+    if res == 101:
+        indice = 5
+    if res == 110:
+        indice = 6
+    if res == 111:
+        indice = 7
+    if res == 1000:
+        indice = 8
+    if res == 1001:
+        indice = 9
+    if res == 1010:
+        indice = 10
+    if res == 1011:
+        indice = 11
+    if res == 1100:
+        indice = 12
+    if res == 1101:
+        indice = 13
+    if res == 1110:
+        indice = 14
+    if res == 1111:
+        indice = 15
+    return indice
 
 def decoderMurs(c,code):
     """
@@ -211,14 +269,78 @@ def decoderMurs(c,code):
     paramètres c une carte
                code un entier codant les murs d'une carte
     Cette fonction modifie la carte mais ne retourne rien
-    """    
-    pass
+    """
+    
+    c[0] = False
+    c[1] = False
+    c[2] = False
+    c[3] = False
+    ###############
+    print("\nindice :",code)
+    if code == 0:
+        indice = 0
+    if code == 1:
+        indice = 1
+    if code == 2:
+        indice = 10
+    if code == 3:
+        indice = 11
+    if code == 4:
+        indice = 100
+    if code == 5:
+        indice = 101
+    if code == 6:
+        indice = 110
+    if code == 7:
+        indice = 111
+    if code == 8:
+        indice = 1000
+    if code == 9:
+        indice = 1001
+    if code == 10:
+        indice = 1010
+    if code == 11:
+        indice = 1011
+    if code == 12:
+        indice = 1100
+    if code == 13:
+        indice = 1101
+    if code == 14:
+        indice = 1110
+    if code == 15:
+        indice = 1111
+
+    print("code référence à l'indice",indice)
+    
+    if indice >= 1000 : #Mur Ouest Présent
+        c[3] = True
+        indice -= 1000
+    
+    print(indice)
+    
+    if indice >= 100 : #Mur Sud Présent
+        c[2] = True
+        indice -= 100
+    
+    print(indice)
+    
+    if indice >= 10 : #Mur Est Présent
+        c[1] = True
+        indice -= 10
+    
+    print(indice)
+    
+    if indice >= 1 : #Mur Nord Présent
+        c[0] = True
+    else:
+        c[0] = False
+#listeCartes=['╬','╦','╣','╗','╩','═','╝','Ø','╠','╔','║','Ø','╚','Ø','Ø','Ø']
 def toChar(c):
     """
     fournit le caractère semi graphique correspondant à la carte (voir la variable listeCartes au début de ce script)
     paramètres c une carte
     """
-    pass
+    return listeCartes[coderMurs(c)]
 
 def passageNord(carte1,carte2):
     """
@@ -227,7 +349,8 @@ def passageNord(carte1,carte2):
     paramètres carte1 et carte2 deux cartes
     résultat un booléen
     """
-    pass
+    return  not carte1[0] and not carte2[2]
+    
 
 def passageSud(carte1,carte2):
     """
@@ -236,8 +359,7 @@ def passageSud(carte1,carte2):
     paramètres carte1 et carte2 deux cartes
     résultat un booléen
     """
-    pass
-
+    return not carte1[2] and not carte2[0]
 def passageOuest(carte1,carte2):
     """
     suppose que la carte2 est placée à l'ouest de la carte1 et indique
@@ -245,7 +367,7 @@ def passageOuest(carte1,carte2):
     paramètres carte1 et carte2 deux cartes
     résultat un booléen
     """
-    pass
+    return not carte1[3] and not carte2[1]
 
 def passageEst(carte1,carte2):
     """
@@ -254,4 +376,4 @@ def passageEst(carte1,carte2):
     paramètres carte1 et carte2 deux cartes
     résultat un booléen    
     """
-    pass
+    return not carte1[1] and not carte2[3]
