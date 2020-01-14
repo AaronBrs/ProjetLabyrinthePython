@@ -21,8 +21,8 @@ class TestListeJoueurs(unittest.TestCase):
                              str(len(noms))+" joueurs mais la fonction getNbJoueurs retourne "+str(nbj)+
                              "\nCela peut provenir des fonctions ListeJoueurs ou getNbJoueurs")
             jc=listeJoueurs.getJoueurCourant(liste_joueurs)
-            self.assertEqual(jc,jo,"La liste de joueur crée à partir de "+str(noms)+" devrait avoir pour joueur courant "+
-                             str(jo)+" mais la fonction getJoueurCourant retourne "+str(jc)+
+            self.assertEqual(joueur.getNom(jc),noms[0],"La liste de joueur crée à partir de "+str(noms)+" devrait avoir pour joueur courant "+
+                             str(noms[0])+" mais la fonction getJoueurCourant retourne "+str(joueur.getNom(jc))+
                              "\nCela peut provenir des fonctions ListeJoueurs ou getJoueurCourant")
 
             
@@ -50,8 +50,8 @@ class TestListeJoueurs(unittest.TestCase):
             for i in range(6):
                 jca=joueur.Joueur(noms[i%taille])
                 jc=listeJoueurs.getJoueurCourant(liste_joueurs)
-                self.assertEqual(jc,jca,"Le joueur courant de la liste joueur créée à partir de "+str(noms)+" au bout de "+str(i)+
-                                 " tour(s) devrait être "+str(jca)+" mais la fonction getJoueurCourant retourne "+str(jc)+
+                self.assertEqual(joueur.getNom(jc),noms[i%taille],"Le joueur courant de la liste joueur créée à partir de "+str(noms)+" au bout de "+str(i)+
+                                 " tour(s) devrait être "+str(noms[i%taille])+" mais la fonction getJoueurCourant retourne "+str(joueur.getNom(jc))+
                                  "\nCela peut provenir des fonctions ListeJoueurs, getJoueurCourant ou changerJoueurCourant")
                 listeJoueurs.changerJoueurCourant(liste_joueurs)
         

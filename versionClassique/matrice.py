@@ -84,15 +84,6 @@ def decalageLigneAGauche(matrice, numLig, nouvelleValeur=0):
     matrice['Liste de valeurs'].insert(indicefinligne)
     return valeurexpulsee
 
-def Test(valeur):
-    ligne6=[53,54,55,56,57,58,59,60,61,62,63]
-    print(ligne6)
-    ligne6.pop(9)
-    print(ligne6)
-    ligne6.insert(1,valeur)
-    print(ligne6)
-print (Test(84))
-
 def decalageLigneADroite(matrice, numLig, nouvelleValeur=0):
     """
     decale la ligne numLig d'une case vers la droite en insérant une nouvelle

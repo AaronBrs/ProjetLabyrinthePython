@@ -29,7 +29,7 @@ def Carte( nord, est, sud, ouest, tresor=0, pions=[]):
     """
     carte=[nord,est,sud,ouest,tresor,pions]
     return carte
-def estValide(c): #à revoir
+def estValide(c):
     """
     retourne un booléen indiquant si la carte est valide ou non c'est à dire qu'elle a zéro un ou deux murs
     paramètre: c une carte
@@ -335,6 +335,7 @@ def decoderMurs(c,code):
     else:
         c[0] = False
 #listeCartes=['╬','╦','╣','╗','╩','═','╝','Ø','╠','╔','║','Ø','╚','Ø','Ø','Ø']
+#              0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15 
 def toChar(c):
     """
     fournit le caractère semi graphique correspondant à la carte (voir la variable listeCartes au début de ce script)

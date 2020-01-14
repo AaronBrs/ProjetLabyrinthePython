@@ -8,6 +8,8 @@
    
    Ce module gère un joueur. 
 """
+ #SDD = {'nom':nomdujoueur,'listetresor':[tresor1,tresor2,...]}
+
 
 def Joueur(nom):
     """
@@ -15,7 +17,12 @@ def Joueur(nom):
     paramètre: nom une chaine de caractères
     retourne le joueur ainsi créé
     """
-    pass
+    new_joueur={}
+    new_joueur['nom']=nom
+    new_joueur['listetresor']=[]
+    return new_joueur
+
+
 def ajouterTresor(joueur,tresor):
     """
     ajoute un trésor à trouver à un joueur (ce trésor sera ajouter en fin de liste) Si le trésor est déjà dans la liste des trésors à trouver la fonction ne fait rien
@@ -24,7 +31,12 @@ def ajouterTresor(joueur,tresor):
         tresor un entier strictement positif
     la fonction ne retourne rien mais modifie le joueur
     """
-    pass
+    
+    
+    if tresor not in joueur['listetresor']:
+        joueur['listetresor'].append(tresor)
+    
+
 
 def prochainTresor(joueur):
     """
@@ -33,24 +45,27 @@ def prochainTresor(joueur):
         joueur le joueur
     résultat un entier représentant le trésor ou None
     """
-    pass
+    if joueur['listetresor']!=[]:
+        return joueur['listetresor'][0]
+    else :
+        return None
 
 def tresorTrouve(joueur):
     """ 
-    enleve le premier trésor à trouver car le joueur l'a trouvé
+    enlève le premier trésor à trouver car le joueur l'a trouvé
     paramètre:
         joueur le joueur
     la fonction ne retourne rien mais modifie le joueur
     """
-    pass
+    joueur['listetresor'].pop(0)
 
 def getNbTresorsRestants(joueur):
     """
-    retourne le nombre de trésors qui reste à trouver
+    retourne le nombre de trésors qu'il reste à trouver
     paramètre: joueur le joueur
     résultat: le nombre de trésors attribués au joueur
     """
-    pass
+    return len(joueur['listetresor'])
 
 def getNom(joueur):
     """
@@ -58,4 +73,5 @@ def getNom(joueur):
     paramètre: joueur le joueur
     résultat: le nom du joueur 
     """
-    pass
+    return joueur['nom']
+    

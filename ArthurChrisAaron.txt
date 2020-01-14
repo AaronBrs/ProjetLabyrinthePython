@@ -113,30 +113,20 @@ Nom et n° invariables
 ordre variable
 
 
-Mail :
+Pour une carte : [MurNord, MurEst, MurSud, MurOuest, n°trésor, [n°joueur 1, n° joueur 2]]
 
-Bonjour Madame,
+Pour un joueur : {"Nom du joueur": NomDuJoueur, "Liste de  trésors" : [n°trésor 1, n°trésor 2, n°trésor 3, ...]}
 
-Je serais le chef de projet de l'équipe composé de Chris BOUDZOUMOU, Arthur DUVEAU et moi-même. Nous avons fait le choix d'utiliser les structures de données suivantes pour notre projet.
-Une carte, de type liste, contient 4 booléens pour la présence des murs, un int pour le numero du trésor présent et une liste qui contient un ou plusieurs entiers qui correspondent aux numéros des pions présents sur la case.
-Un joueur, de type tuple, contient une chaîne de caractère pour son nom, et une liste d'entiers pour les trésors qu'il doit trouver.
-Une liste de joueur, de type dictionnaire, contient une clé pour le nom du joueur et a pour valeur une liste de 2 entiers correspondant au numéro du joueur à son ordre de passage. Voici donc à quoi pourraient ressembler ces structures de données :
+Pour une liste de joueurs : [{'Nom du joueur' :NomDuJoueur1, "Liste de trésors" : [n°trésor 1, n°trésor 2, n°trésor 3, ...]}, {'Nom du joueur' : NomDuJoueur2, 'Liste de trésors' : [n°trésor 1, n°trésor 2, n°trésor 3, ...]}, ... ]
 
-Pour une carte : [N°Carte, MurNord, MurEst, MurSud, MurOuest, n°trésor, [n°joueur 1, n° joueur 2]]
+Pour une matrice : {Nombre de lignes : nbLignes, 'Nombre de colonnes' : nbColonnes, 'Liste de valeurs' : [0,0,0,0,0,0,...]}
 
-Pour un joueur : ("Nom du joueur", [n°trésor 1, n°trésor 2, n°trésor 3, ...])
+Pour un plateau : (matricePlateau,carteLibre)
 
-Pour une liste de joueurs : {'Nom du joueur 1' : [n° joueur 1, ordre], 'Nom du joueur 2' :  [n° joueur 2, ordre], ...}
+Pour le labyrinthe : {'Plateau de jeu' : plateau, 'Liste des joueurs' : listeJoueurs, 'Phase de jeu': phase}
 
-Si vous avez des suggestions à nous faire, ou des remarques à apporter, merci de m'en faire part.
-Je vous ferais part du fichier contenant les fiches individuelles au plus vite.
-Concernant la répartition des tâches, Arthur se chargera du fichier joueurs.py, Chris s'occupera du fichier listeJoueurs.py et je ferai le fichier carte.py
 
-Cordialement,
-
-Aaron BROSSEAU
-
-Modication du SDD :
-
-Ajout des listes de trésors dans la liste de joueurs
-N°carte retiré dans le constructeur des cartes
+Pion 1 #Vert
+Pion 2 #Bleu
+Pion 3 #Jaune
+Pion 4 #Rouge

@@ -21,11 +21,15 @@ def Labyrinthe(nomsJoueurs=["joueur1","joueurs2"],nbTresors=24, nbTresorsMax=0):
     à chaque joueur en restant équitable
     un joueur courant est choisi et la phase est initialisée
     paramètres: nomsJoueurs est la liste des noms des joueurs participant à la partie (entre 1 et 4)
-                nbTresors le nombre de trésors différents il en faut au moins 12 et au plus 49
+                nbTresors le nombre de trésors différents il en faut au moins 12 et au plus 45
                 nbTresorMax le nombre de trésors maximum distribué à chaque joueur
     résultat: le labyrinthe crée
     """
-    pass
+    labyrinthe=dict()
+    labyrinthe["Plateau de jeu"]=Plateau(len(nomsJoueurs),nbTresors)
+    labyrinthe["Liste de joueurs"]=ListeJoueurs(nomsJoueurs)
+    labyrinthe["Phase de jeu"]=1
+    return labyrinthe
 
 def getPlateau(labyrinthe):
     """
@@ -33,7 +37,7 @@ def getPlateau(labyrinthe):
     paramètre: labyrinthe le labyrinthe considéré
     résultat: la matrice représentant le plateau de ce labyrinthe
     """
-    pass
+    return labyrinthe['Plateau de jeu']["Plateau"]
 
 def getNbParticipants(labyrinthe):
     """
@@ -41,7 +45,7 @@ def getNbParticipants(labyrinthe):
     paramètre: labyrinthe le labyrinthe considéré
     résultat: le nombre de joueurs de la partie
     """
-    pass
+    return len(labyrinthe["Liste de joueurs"])
 
 def getNomJoueurCourant(labyrinthe):
     """
@@ -49,7 +53,7 @@ def getNomJoueurCourant(labyrinthe):
     paramètre: labyrinthe le labyrinthe considéré
     résultat: le nom du joueurs courant
     """
-    pass
+    return nomJoueurCourant(labyrinthe["Liste de joueurs"])
 
 def getNumJoueurCourant(labyrinthe):
     """
@@ -57,7 +61,7 @@ def getNumJoueurCourant(labyrinthe):
     paramètre: labyrinthe le labyrinthe considéré
     résultat: le numero du joueurs courant
     """
-    pass
+    return numJoueurCourant(labyrinthe["Liste de joueurs"])
 
 def getPhase(labyrinthe):
     """
@@ -65,16 +69,20 @@ def getPhase(labyrinthe):
     paramètre: labyrinthe le labyrinthe considéré
     résultat: le numéro de la phase de jeu courante
     """   
-    pass
-
+    return labyrinthe["Phase de jeu"]
 
 def changerPhase(labyrinthe):
     """
     change de phase de jeu en passant la suivante
     paramètre: labyrinthe le labyrinthe considéré
     la fonction ne retourne rien mais modifie le labyrinthe
-    """    
-    pass
+    """      
+    if labyrinthe["Phase de jeu"] == 1 :
+        labyrinthe["Phase de jeu"] = 2
+    else : 
+        if labyrinthe["Phase de jeu"] == 2 : 
+            labyrinthe["Phase de jeu"] = 1
+
 
 
 def getNbTresors(labyrinthe):
@@ -83,7 +91,15 @@ def getNbTresors(labyrinthe):
     paramètre: labyrinthe le labyrinthe considéré
     résultat: le nombre de trésors sur le plateau
     """    
-    pass
+    nombreDeTresorsSurLePlateau = 0
+    
+    listeJoueurs = labyrinthe['Liste de joueurs']
+    
+    for joueur in listeJoueurs:
+        nb = len(joueur['listeTresor'])
+        nombreDeTresorsSurLePlateau+=nb
+    
+    return nombreDeTresorsSurLePlateau 
 
 def getListeJoueurs(labyrinthe):
     """
@@ -91,7 +107,7 @@ def getListeJoueurs(labyrinthe):
     paramètre: labyrinthe le labyrinthe considéré
     résultat: les joueurs sous la forme de la structure implémentée dans listeJoueurs.py    
     """
-    pass
+    return labyrinthe["Liste de joueurs"]
 
 
 def enleverTresor(labyrinthe,lin,col,numTresor):
@@ -105,7 +121,7 @@ def enleverTresor(labyrinthe,lin,col,numTresor):
                 numTresor: le numéro du trésor à prendre sur la carte
     la fonction ne retourne rien mais modifie le labyrinthe
     """
-    pass
+    prendreTresorPlateau(getPlateau(labyrinthe),lin,col,numTresor)
 
 def prendreJoueurCourant(labyrinthe,lin,col):
     """
@@ -116,7 +132,8 @@ def prendreJoueurCourant(labyrinthe,lin,col):
                 col: la colonne où se trouve la carte
     la fonction ne retourne rien mais modifie le labyrinthe    
     """
-    pass
+    prendrePion(getPlateau(labyrinthe)[(getNbColonnes(unPlateauDeJeu)*lin+col)],getJoueurCourant(labyrinthe["Liste de joueurs"]))
+
 def poserJoueurCourant(labyrinthe,lin,col):
     """
     pose le joueur courant sur la case lin,col du plateau
@@ -125,15 +142,16 @@ def poserJoueurCourant(labyrinthe,lin,col):
                 col: la colonne où se trouve la carte
     la fonction ne retourne rien mais modifie le labyrinthe     
     """
-    pass
+    poserPion(getPlateau(ŀabyrinthe)[(getNbColonnes(getPlateau(ŀabyrinthe))*lin+col)],getJoueurCourant(labyrinthe["Liste de joueurs"]))
 
 def getCarteAJouer(labyrinthe):
     """
     donne la carte à jouer
     paramètre: labyrinthe: le labyrinthe considéré
     résultat: la carte à jouer    
-    """    
-    pass
+    """
+    return labyrinthe["Plateau de jeu"]["Carte libre"]
+
 def coupInterdit(labyrinthe,direction,rangee):
     """ 
     retourne True si le coup proposé correspond au coup interdit
@@ -159,9 +177,6 @@ def jouerCarte(labyrinthe,direction,rangee):
     """
     pass
 
-
-
-
 def tournerCarte(labyrinthe,sens='H'):
     """
     tourne la carte à jouer dans le sens indiqué en paramètre (H horaire A antihoraire)
@@ -169,7 +184,12 @@ def tournerCarte(labyrinthe,sens='H'):
                 sens: un caractère indiquant le sens dans lequel tourner la carte
      Cette fonction ne retourne pas de résultat mais mais à jour le labyrinthe    
     """
-    pass
+    carteATourner=getCarteAJouer(labyrinthe)
+    if sens=='H':
+        tournerHoraire(carteATourner)
+    else: 
+        if sens=='A':
+            tournerAntiHoraire(carteATourner)
 
 def getTresorCourant(labyrinthe):
     """
@@ -177,7 +197,7 @@ def getTresorCourant(labyrinthe):
     paramètre: labyritnthe: le labyrinthe considéré 
     resultat: le numéro du trésor recherché par le joueur courant
     """
-    pass
+    return tresorCourant(labyrinthe['Liste de joueurs'])
 
 def getCoordonneesTresorCourant(labyrinthe):
     """
@@ -186,7 +206,7 @@ def getCoordonneesTresorCourant(labyrinthe):
     resultat: les coordonnées du trésor à chercher ou None si celui-ci 
               n'est pas sur le plateau
     """
-    pass
+    return getCoordonneesTresor(labyrinthe['Plateau de jeu'],tresorCourant(labyrinthe['Liste de joueurs']))
 
 
 def getCoordonneesJoueurCourant(labyrinthe):
@@ -196,7 +216,7 @@ def getCoordonneesJoueurCourant(labyrinthe):
     resultat: les coordonnées du joueur courant ou None si celui-ci 
               n'est pas sur le plateau
     """
-    pass
+    return getCoordonneesJoueur(labyrinthe['Plateau de jeu'],numJoueurCourant(labyrinthe['Liste de joueurs']))
 
 
 def executerActionPhase1(labyrinthe,action,rangee):
