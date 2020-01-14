@@ -60,11 +60,10 @@ def creerCartesAmovibles(tresorDebut,nbTresors):
             listeTresors.remove(tresor)         #On retire le trésor de la liste pour pas qu'il ne soit attribué deux fois
             mettreTresor(carte,tresor)          #On pose le trésor sur la carte
             nbTresors-=1                        #Mise à jour du nombre de trésors (à voir)
-
+    random.shuffle(listeCartesAmovibles)
     return listeCartesAmovibles
 
 def Plateau(nbJoueurs, nbTresors):
-    dictionnairePlateau=dict()
     """
     créer un nouveau plateau contenant nbJoueurs et nbTrésors
     paramètres: nbJoueurs le nombre de joueurs (un nombre entre 1 et 4)
@@ -74,6 +73,9 @@ def Plateau(nbJoueurs, nbTresors):
                 ont été placée de manière aléatoire
               - la carte amovible qui n'a pas été placée sur le plateau
     """
+    
+    dictionnairePlateau=dict()
+    
     #Création du plateau vierge
 
     nouveauPlateau=Matrice(7,7)
@@ -238,7 +240,7 @@ def Plateau(nbJoueurs, nbTresors):
     #    29    31    33   
     # 35 36 37 38 39 40 41
     #    43    45    47
-    listeIndiceCartesAmovibles=[1,3,5,7,8,9,10,11,12,13,15,17,19,21,22,23,24,25,26,27,29,31,33,35,36,37,38,39,40,]
+    
     #Positionnement aléatoires des cartes amovibles
 
     for i in range(getNbLignes(nouveauPlateau)):                        #Pour chaque ligne du plateau
@@ -258,7 +260,7 @@ def Plateau(nbJoueurs, nbTresors):
     dictionnairePlateau["Carte libre"]=carteLibre
     return dictionnairePlateau
 
-
+print(Plateau(4,24))
 def prendreTresorPlateau(plateau,lig,col,numTresor):
     """
     prend le tresor numTresor qui se trouve sur la carte en lig,col du plateau
