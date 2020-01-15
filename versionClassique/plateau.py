@@ -346,71 +346,39 @@ def accessible(plateau,ligD,colD,ligA,colA):
               et la case d'arrivée
     """
     def marquageDirect(calque,plateau):
+
         estMarque=False
 
         for lig in range(getNbLignes(plateau)):#Pour chaque ligne de notre labyrinthe
 
             for col in range(getNbColonnes(plateau)):#Pour chaque case de la ligne
 
-                carteActuelle = getVal(plateau,lig,col)
-
-                if col - 1 >= 0:#Carte de gauche existante
-                    carteGauche = getVal(plateau,lig,col-1)
-                else:
-                    carteGauche = None
-                
-                if lig - 1 >= 0:#Carte du haut existante
-                    carteHaut = getVal(plateau,lig-1,col)
-                else:
-                    carteHaut = None
-                
-                if col + 1 < getNbColonnes(plateau):#Carte de droite existante
-                    carteDroite = getVal(plateau,lig,col+1)
-                else:
-                    carteDroite = None
-                
-                if lig + 1 < getNbLignes(plateau):#Carte du bas existante
-                    carteBas = getVal(plateau,lig+1,col)
-                else:
-                    carteBas = None
-
-                def unPassagePossible(carte):
-                    if passageSud(carte,carteBas):
-                        return True
-                    else:
-                        if passageEst(carte,carteDroite):
-                            return True
-                        else:
-                            if passageNord(carte,carteHaut):
-                                return True
-                            else:
-                                if passageOuest(carte,carteGauche):
-                                    return True
-                                else:
-                                    return False
-
-                if getVal(calque,lig,col)==0 and unPassagePossible(carteActuelle):#Case susceptible d'être marqué (valoir 0 dans le calque et avoir un passage existant avec un voisin)
+                if getVal(calque,lig,col)==0:#Case susceptible d'être marqué
                     
                     #Vérification des 4 voisins
 
-                    if col-1 >= 0 and (getVal(calque,lig,col-1)==1) and passageOuest(carteActuelle,carteGauche):#Case de gauche
-                        setVal(calque,lig,col,1)
-                        estMarque=True
-                    else:
-                        
-                        if lig-1 >= 0 and (getVal(calque,lig-1,col)==1) and passageNord(carteActuelle,carteHaut):#Case du haut
+                    if col-1 >= 0 and getVal(calque,lig,col-1)==1 :#Case de gauche
+                        if passageOuest(getVal(plateau,lig,col),getVal(plateau,lig,col-1)):#S'il existe un passage à gauche de la carte actuelle
                             setVal(calque,lig,col,1)
                             estMarque=True
-                        else:
-                            
-                            if col+1 < getNbColonnes(plateau) and getVal(calque,lig,col+1)==1 and passageEst(carteActuelle,carteDroite):#Case de droite
+                    else:
+
+                        if lig-1 >= 0 and getVal(calque,lig-1,col)==1:#Case du haut
+                            if passageNord(getVal(plateau,lig,col),getVal(plateau,lig-1,col)):#S'il existe un passage à gauche de la carte actuelle
                                 setVal(calque,lig,col,1)
                                 estMarque=True
-                            else:
-                                
-                                if lig+1 < getNbLignes(plateau) and getVal(calque,lig+1,col)==1 and passageSud(carteActuelle,carteBas):#Case du bas
+                        else:
+                            
+                            if col+1 < getNbColonnes(plateau) and getVal(calque,lig,col+1)==1:#Case de droite
+                                if passageEst(getVal(plateau,lig,col),getVal(plateau,lig,col+1)):#S'il existe un passage à gauche de la carte actuelle
                                     setVal(calque,lig,col,1)
                                     estMarque=True
+                            else:
+                                
+                                if lig+1 < getNbLignes(plateau) and getVal(calque,lig+1,col)==1 :#Case du bas
+                                    if passageSud(getVal(plateau,lig,col),getVal(plateau,lig+1,col)):#S'il existe un passage à gauche de la carte actuelle
+                                        setVal(calque,lig,col,1)
+                                        estMarque=True
         
         return estMarque
 
@@ -443,119 +411,83 @@ def accessibleDist(plateau,ligD,colD,ligA,colA):
               de départ et la case d'arrivée
     """
     def marquageDirect(calque,plateau):
+        
         estMarque=False
 
         for lig in range(getNbLignes(plateau)):#Pour chaque ligne de notre labyrinthe
 
             for col in range(getNbColonnes(plateau)):#Pour chaque case de la ligne
 
-                carteActuelle = getVal(plateau,lig,col)
-
-                if col - 1 >= 0:#Carte de gauche existante
-                    carteGauche = getVal(plateau,lig,col-1)
-                else:
-                    carteGauche = None
-                
-                if lig - 1 >= 0:#Carte du haut existante
-                    carteHaut = getVal(plateau,lig-1,col)
-                else:
-                    carteHaut = None
-                
-                if col + 1 < getNbColonnes(plateau):#Carte de droite existante
-                    carteDroite = getVal(plateau,lig,col+1)
-                else:
-                    carteDroite = None
-                
-                if lig + 1 < getNbLignes(plateau):#Carte du bas existante
-                    carteBas = getVal(plateau,lig+1,col)
-                else:
-                    carteBas = None
-
-                def unPassagePossible(carte):
-                    if passageSud(carte,carteBas):
-                        return True
-                    else:
-                        if passageEst(carte,carteDroite):
-                            return True
-                        else:
-                            if passageNord(carte,carteHaut):
-                                return True
-                            else:
-                                if passageOuest(carte,carteGauche):
-                                    return True
-                                else:
-                                    return False
-
-                if getVal(calque,lig,col)==0 and unPassagePossible(carteActuelle):#Case susceptible d'être marqué (valoir 0 dans le calque et avoir un passage existant avec un voisin)
+                if getVal(calque,lig,col)==0:#Case susceptible d'être marqué 
                     
                     #Vérification des 4 voisins
 
-                    if col-1 >= 0 and (getVal(calque,lig,col-1)==1) and passageOuest(carteActuelle,carteGauche):#Case de gauche
-                        setVal(calque,lig,col,1)
-                        estMarque=True
-                    else:
-                        
-                        if lig-1 >= 0 and (getVal(calque,lig-1,col)==1) and passageNord(carteActuelle,carteHaut):#Case du haut
-                            setVal(calque,lig,col,1)
+                    val=getVal(calque,lig,col-1)
+                    if col-1 >= 0 and getVal(calque,lig,col-1)==1:#Case de gauche
+                        if passageEst(getVal(plateau,lig,col),getVal(plateau,lig,col-1)):
+                            setVal(calque,lig,col,val+1)
                             estMarque=True
+                    else:
+
+                        val=getVal(calque,lig-1,col)
+                        if lig-1 >= 0 and getVal(calque,lig-1,col)==1:
+                            if passageNord(getVal(plateau,lig,col),getVal(plateau,lig-1,col)):
+                                setVal(calque,lig,col,val+1)
+                                estMarque=True
                         else:
                             
-                            if col+1 < getNbColonnes(plateau) and getVal(calque,lig,col+1)==1 and passageEst(carteActuelle,carteDroite):#Case de droite
-                                setVal(calque,lig,col,1)
-                                estMarque=True
+                            val=getVal(calque,lig,col+1)
+                            if col+1 < getNbColonnes(plateau) and getVal(calque,lig,col+1)==1:
+                                if passageOuest(getVal(plateau,lig,col),getVal(plateau,lig,col+1)):
+                                    setVal(calque,lig,col,val+1)
+                                    estMarque=True
                             else:
                                 
-                                if lig+1 < getNbLignes(plateau) and getVal(calque,lig+1,col)==1 and passageSud(carteActuelle,carteBas):#Case du bas
-                                    setVal(calque,lig,col,1)
-                                    estMarque=True
-        
+                                val=getVal(calque,lig+1,col)
+                                if lig+1 < getNbLignes(plateau) and getVal(calque,lig+1,col)==1:
+                                    if passageSud(getVal(plateau,lig,col),getVal(plateau,lig+1,col)):
+                                        setVal(calque,lig,col,val+1)
+                                        estMarque=True
         return estMarque
-    def cheminDecroissant(calque,ligD,colD,ligA,colA):
-        listeChemin=[]
-        fini=False
-        while not fini :
-            if colD-1 < getNbLignes(calque) and getVal(calque,ligD,colD-1)==getVal(calque,ligD,colD+1)+1:#Si la case de gauche vaut la case -1
-                listeChemin.append((ligD,colD))#On ajoute la position à la liste des chemins
-                colD-=1
-            else:
-                if ligD-1 < getNbColonnes(calque) and getVal(calque,ligD-1,colD)==getVal(calque,ligD,colD)+1 :#Si la case de dessus vaut la case -1
-                    listeChemin.append((ligD,colD))#On ajoute la position à la liste des chemins
-                    ligD-=1
-            if (ligD,colD) == (ligA,colA):
-                listeChemin.append((ligD,colD))
-                fini=True
-        return listeChemin
-    
-    estMarque=True
-    calque=Matrice(getNbLignes(plateau),getNbColonnes(plateau))
-    setVal(calque,0,0,1)
-    val = 1
-    marque = val+1
-    while estMarque:        
-        estMarque=marquageDirect(calque,plateau)
-        val += 1
-        marque = val+1
-    if ((getVal(calque,ligD,colD) != 0) and (getVal(calque,ligA,colA) != 0)): #Si les deux cases ont été marquées (Si un chemin existe entre ces deux cases)
-        return cheminDecroissant(calque,ligD,colD,ligA,colA)
+
+    if accessible(plateau,ligD,colD,ligA,colA):
+        estMarque=True
+        calque=Matrice(getNbLignes(plateau),getNbColonnes(plateau))
+        setVal(calque,0,0,1)
+
+        while estMarque:        
+        
+            estMarque=marquageDirect(calque,plateau)
+        
+        val=getVal(calque,ligA,colA)
+        listeCoord=[(ligA,colA)]
+        while (ligD,colD) != (ligA,colA):
+            if ligA - 1 >= 0:
+                val_haut = getVal(calque,ligA-1,colA)
+                if val_haut==val-1:
+                    ligA -= 1
+                    val=val_haut
+                    listeCoord.append((ligA,colA))
+            if ligA + 1 < getNbLignes(calque):
+                val_bas=getVal(calque,ligA+1,colA)
+                if val_bas==val-1:
+                    ligA+=1
+                    val=val_bas
+                    listeCoord.append((ligA,colA))
+            if colA - 1 < getNbColonnes(calque):
+                val_gauche=getVal(calque,ligA,colA-1)
+                if val_gauche==val-1:
+                    colA-=1
+                    val=val_gauche
+                    listeCoord.append((ligA,colA))
+            if colA + 1 < getNbLignes(calque):
+                val_droite=getVal(calque,ligA,colA+1)
+                if val_droite==val-1:
+                    colA+=1
+                    val=val_droite
+                    listeCoords.append((ligA,ColA))
+        listeCoord.reverse()
+        return listeCoord
     else:
         return None
-plateautest=Matrice(3,3)
-carte1=Carte(True,False,False,True,0,[])
-carte2=Carte(True,True,False,False,0,[])
-carte3=Carte(True,False,False,False,0,[])
-carte4=Carte(True,True,False,False,0,[])
-carte5=Carte(False,True,False,True,0,[])
-carte6=Carte(False,True,False,False,0,[])
-carte7=Carte(True,False,True,False,0,[])
-carte8=Carte(False,False,False,False,0,[])
-carte9=Carte(False,True,True,False,0,[])
-setVal(plateautest,0,0,carte1)
-setVal(plateautest,0,1,carte2)
-setVal(plateautest,0,2,carte3)
-setVal(plateautest,1,0,carte4)
-setVal(plateautest,1,1,carte5)
-setVal(plateautest,1,2,carte6)
-setVal(plateautest,2,0,carte7)
-setVal(plateautest,2,1,carte8)
-setVal(plateautest,2,2,carte9)
-print(accessible(plateautest,1,1,1,0))
+    

@@ -130,3 +130,10 @@ Pion 1 #Vert
 Pion 2 #Bleu
 Pion 3 #Jaune
 Pion 4 #Rouge
+
+Fonctions à debugger
+
+getCoordonneesTresorCourant() : Ajout de la clé Liste de valeurs pour débugger 
+
+Problème rencontré
+Conversion de la sortie d'un input en int oubliée.

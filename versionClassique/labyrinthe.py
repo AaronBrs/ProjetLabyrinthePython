@@ -46,7 +46,7 @@ def Labyrinthe(nomsJoueurs=["joueur1","joueurs2"],nbTresors=24, nbTresorsMax=0):
 
     return labyrinthe
 
-def getPlateau(labyrinthe):
+def getPlateau(labyrinthe): #Fonctionne
     """
     retourne la matrice représentant le plateau de jeu
     paramètre: labyrinthe le labyrinthe considéré
@@ -54,7 +54,7 @@ def getPlateau(labyrinthe):
     """
     return labyrinthe['Plateau de jeu']["Plateau"]
 
-def getNbParticipants(labyrinthe):
+def getNbParticipants(labyrinthe): #Fonctionne
     """
     retourne le nombre de joueurs engagés dans la partie
     paramètre: labyrinthe le labyrinthe considéré
@@ -235,7 +235,7 @@ def jouerCarte(labyrinthe,direction,rangee):
 
     labyrinthe["Dernier coup"] = (direction,rangee)
 
-def tournerCarte(labyrinthe,sens='H'):
+def tournerCarte(labyrinthe,sens='H'): #Fonctionne
     """
     tourne la carte à jouer dans le sens indiqué en paramètre (H horaire A antihoraire)
     paramètres: labyrinthe: le labyrinthe considéré
@@ -249,7 +249,7 @@ def tournerCarte(labyrinthe,sens='H'):
         if sens=='A':
             tournerAntiHoraire(carteATourner)
 
-def getTresorCourant(labyrinthe):
+def getTresorCourant(labyrinthe): 
     """
     retourne le numéro du trésor que doit cherche le joueur courant
     paramètre: labyrinthe: le labyrinthe considéré 
@@ -348,4 +348,5 @@ def finirTour(labyrinthe):
             changerPhase(labyrinthe)
             return 0
 
-print(getCoordonneesTresor(getPlateau(Labyrinthe(["Aaron","Bot"],12,0)),1))
+LabyrintheTest=(Labyrinthe(["Joueur1","Joueur2"],12,0)
+print(getCoordonneesTresor(getPlateau(LabyrintheTest)),1))
