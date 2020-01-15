@@ -162,15 +162,68 @@ def saisirOrdre(lmt):
               c'est à dire le numéro de la ligne ou de la colonne où insérer la carte
               si l'ordre saisi n'est pas valide la focntion retourne (-1,-1)
     """
-    pass
+    reponse = input("Que souhaitez-vous faire ?\n1--- Tapez 1 pour tourner la carte\n2--- Tapez 2 pour insérer la carte\n")
+    
+    if reponse == "1":
+    
+        return ('T','T')
+        
+    else:
+        
+        if reponse == "2":
+            
+            reponse2 = input("Veuillez choisir un sens parmi : N, E , S , O:\nN pour nord\nE pour Est\nS pour Sud\nO pour Ouest\n")
+            
+            while reponse2 not in ["N","E","S","O"] :
+                
+                reponse2 = input("Veuillez choisir un sens parmi : N, E , S , O:\nN pour nord\nE pour Est\nS pour Sud\nO pour Ouest\n")
+            
+            sens = reponse2
+            
+            reponse3 = input("Veuillez une rangée par : 1 , 3 ou 5\n")
+            
+            while reponse3 not in ["1","3","5"] :
+                
+                reponse3 = input("Veuillez une rangée par : 1 , 3 ou 5\n")
+                
+            rangee = reponse3
+            
+            if (coupInterdit(lmt["labyrinthe"],sens,rangee)) == False :
+                
+                return (sens,rangee)
+                
+            else :
+                
+                reponse2 = input("Ce coup est interdit. Veuillez choisir un sens parmi : N, E , S , O:\nN pour nord\nE pour Est\nS pour Sud\nO pour Ouest\n")
+                
+        else:
+            return (-1,-1)
+
 
 def saisirDeplacement(lmt):
     """
     permet de saisir les coordonnées du point d'arrivée visé par le joueur courant
     paramètre: lmt: une vue texte de labyrinthe
     résultat: un couple d'entier (lin,col) indiquant les coordonnées de la case destination. Si l'utilisateur a entré des coordonnées incorrecte la fonction retourne (-1,-1)
-    """    
-    pass
+    """     
+    ligne= input("Veuillez saisir la ligne :")
+    colonne= input("Veuillez saisir la colonne :")
+
+    try:
+        ligne=int(ligne)
+        colonne=int(colonne)
+        if type(ligne)!=type(1) and type(colonne)!=type(1):
+            ligne=-1
+            colonne=-1
+        else :
+            if ligne<0 or ligne>=7 and colonne<0 or colonne>=7:
+                ligne=-1
+                colonne=-1
+    except:
+        ligne=-1
+        colonne=-1
+
+    return(ligne,colonne)
         
 # demarre la partie en mode texte
 def demarrer(lmt):

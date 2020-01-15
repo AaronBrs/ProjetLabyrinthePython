@@ -264,7 +264,7 @@ def getCoordonneesTresorCourant(labyrinthe):
     resultat: les coordonnées du trésor à chercher ou None si celui-ci 
               n'est pas sur le plateau
     """
-    return getCoordonneesTresor(getPlateau(labyrinthe),tresorCourant(getListeJoueurs(labyrinthe)))
+    return getCoordonneesTresor(getPlateau(labyrinthe),(getListeJoueurs(labyrinthe)))
 
 
 def getCoordonneesJoueurCourant(labyrinthe):

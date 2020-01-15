@@ -209,7 +209,10 @@ def tresorCourant(joueurs):
     listeDesJoueurs=joueurs[1]    
     for i in range(len(listeDesJoueurs)):
         if i == indice:
-            return listeDesJoueurs[i]['listetresor'][0]
+            if listeDesJoueurs[i]['listetresor']!=[]:
+                return listeDesJoueurs[i]['listetresor'][0]
+            else:
+                return None
 
 def joueurCourantAFini(joueurs):
     """

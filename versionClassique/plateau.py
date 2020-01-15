@@ -288,10 +288,10 @@ def getCoordonneesTresor(plateau,numTresor):
               le trésor n'est pas sur le plateau
     """
     coordonnees=None
-    for i in range(getNbLignes(plateau["Plateau"])):
-        for j in range(getNbColonnes(plateau["Plateau"])): 
-            tresor=getTresor(plateau["Plateau"][(getNbColonnes(plateau["Plateau"])*i+j)])
-            if tresor==numTresor:
+    for i in range(getNbLignes(plateau)):
+        for j in range(getNbColonnes(plateau)): 
+            tresor=getTresor(plateau[(getNbColonnes(plateau)*i+j)])
+            if tresor==numTresor and tresor != 0:
                 coordonnees=(i,j)
     return coordonnees
 
