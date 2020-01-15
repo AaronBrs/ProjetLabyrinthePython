@@ -288,13 +288,13 @@ def getCoordonneesTresor(plateau,numTresor):
               le trésor n'est pas sur le plateau
     """
     coordonnees=None
-    for i in range(getNbLignes(plateau)):
-        for j in range(getNbColonnes(plateau)): 
-            tresor=getTresor(plateau[(getNbColonnes(plateau)*i+j)])
+    for i in range(getNbLignes(plateau["Plateau"])):
+        for j in range(getNbColonnes(plateau["Plateau"])): 
+            tresor=getTresor(plateau["Plateau"]['Liste de valeurs'][(getNbColonnes(plateau["Plateau"])*i+j)])
             if tresor==numTresor and tresor != 0:
                 coordonnees=(i,j)
     return coordonnees
-
+print(getCoordonneesTresor(Plateau(2,12),1))
 def getCoordonneesJoueur(plateau,numJoueur):
     """
     retourne les coordonnées sous la forme (lig,col) du joueur passé en paramètre
@@ -306,7 +306,7 @@ def getCoordonneesJoueur(plateau,numJoueur):
     coordonnees=None
     for i in range(getNbLignes(plateau["Plateau"])):
         for j in range(getNbColonnes(plateau["Plateau"])): 
-            listePion=getListePion(plateau["Plateau"][(getNbColonnes(plateau["Plateau"])*i+j)])
+            listePion=getListePion(plateau["Plateau"]['Liste de valeurs'][(getNbColonnes(plateau["Plateau"])*i+j)])
             if joueur in listePion:
                 coordonnees=(i,j)
     return coordonnees
