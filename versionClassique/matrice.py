@@ -51,7 +51,8 @@ def getVal(matrice,ligne,colonne):
                 colonne le numéro de la colonne (en commençant par 0)
     """
     return matrice['Liste de valeurs'][getNbColonnes(matrice)*ligne+colonne]
-
+matriceTest=Matrice(3,3)
+getVal(matriceTest,1,1)
 def setVal(matrice,ligne,colonne,valeur):
     """
     met la valeur dans la case se trouve en (ligne,colonne) de la matrice
@@ -79,10 +80,13 @@ def decalageLigneAGauche(matrice, numLig, nouvelleValeur=0):
     """
     indicedebutligne =  getNbColonnes(matrice)*numLig+(getNbColonnes(matrice)-getNbColonnes(matrice)) # 54
     indicefinligne   =  getNbColonnes(matrice)*numLig+(getNbColonnes(matrice)-1) # 62
-    valeurexpulsee=getVal(matrice,numLig,0)
+    valeurexpulsee=getVal(matrice,numLig,(getNbColonnes(matrice)-1))
     matrice['Liste de valeurs'].pop(indicedebutligne)
-    matrice['Liste de valeurs'].insert(indicefinligne)
+    matrice['Liste de valeurs'].insert(indicefinligne,nouvelleValeur)
     return valeurexpulsee
+
+
+    
 
 def decalageLigneADroite(matrice, numLig, nouvelleValeur=0):
     """
@@ -95,10 +99,15 @@ def decalageLigneADroite(matrice, numLig, nouvelleValeur=0):
     """
     indicedebutligne =  getNbColonnes(matrice)*numLig+(getNbColonnes(matrice)-getNbColonnes(matrice)) # 54
     indicefinligne   =  getNbColonnes(matrice)*numLig+(getNbColonnes(matrice)-1) # 62
-    valeurexpulsee=getVal(matrice,numLig,(getNbColonnes(matrice)-1))
+    valeurexpulsee=getVal(matrice,numLig,0)
     matrice['Liste de valeurs'].pop(indicedebutligne)
     matrice['Liste de valeurs'].insert(indicefinligne,nouvelleValeur)
     return valeurexpulsee
+
+matriceTest=Matrice(3,3)
+print(matriceTest)
+decalageLigneADroite(matriceTest,1,9)
+print(matriceTest)
 
 def decalageColonneEnHaut(matrice, numCol, nouvelleValeur=0):
     """

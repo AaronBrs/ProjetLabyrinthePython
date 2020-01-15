@@ -178,19 +178,21 @@ def saisirOrdre(lmt):
                 
                 reponse2 = input("Veuillez choisir un sens parmi : N, E , S , O:\nN pour nord\nE pour Est\nS pour Sud\nO pour Ouest\n")
             
-            sens = reponse2
+            direction = reponse2
             
-            reponse3 = input("Veuillez une rangée par : 1 , 3 ou 5\n")
-            
-            while reponse3 not in ["1","3","5"] :
+            reponse3 = input("Veuillez choisir une rangée par : 1 , 3 ou 5\n")
+            reponse3= int(reponse3)
+
+            while reponse3 not in [1,3,5] :
                 
-                reponse3 = input("Veuillez une rangée par : 1 , 3 ou 5\n")
+                reponse3 = input("Veuillez choisir une rangée par : 1 , 3 ou 5\n")
+                reponse3= int(reponse3)
                 
             rangee = reponse3
             
-            if (coupInterdit(lmt["labyrinthe"],sens,rangee)) == False :
+            if (coupInterdit(lmt["labyrinthe"],direction,rangee)) == False :
                 
-                return (sens,rangee)
+                return (direction,rangee)
                 
             else :
                 

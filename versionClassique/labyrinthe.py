@@ -293,21 +293,21 @@ def executerActionPhase1(labyrinthe,action,rangee):
               3 si action et rangee sont des entiers positifs
               4 dans tous les autres cas
     """
+
     if getPhase(labyrinthe)==1:
-        if action=='T' and not coupInterdit(labyrinthe,direction,rangee):
+        if action=='T' and not coupInterdit(labyrinthe,action,rangee):
             tournerCarte(labyrinthe)
             return 0
         else :
-            if action=='N' or action=='S' or action=='E' or action=='O' and rangee==1 or rangee==3 or rangee==5 and not coupInterdit(labyrinthe,direction,rangee) :
-                jouerCarte(labyrinthe,direction,rangee)
+            if action=='N' or action=='S' or action=='E' or action=='O' and rangee==1 or rangee==3 or rangee==5 and not coupInterdit(labyrinthe,action,rangee) :
+                jouerCarte(labyrinthe,action,rangee)
                 return 1
-
             else :
-                if action>=0 and rangee>=0 :
-                    return 3
-                else :
-                    if coupInterdit(labyrinthe,direction,rangee):
-                        return 2
+                if coupInterdit(labyrinthe,action,rangee):
+                    return 2
+                else:
+                    if action >=0 and rangee>=0 :
+                        return 3
                     else :
                         return 4
     else :
@@ -347,3 +347,5 @@ def finirTour(labyrinthe):
             changerJoueurCourant(getListeJoueurs(labyrinthe))
             changerPhase(labyrinthe)
             return 0
+
+print(getCoordonneesTresor(getPlateau(Labyrinthe(["Aaron","Bot"],12,0)),1))

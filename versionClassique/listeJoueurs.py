@@ -228,4 +228,3 @@ def joueurCourantAFini(joueurs):
             if listeDesJoueurs[i]['listetresor']==[]:
                 joueurCourantAGagne=True
     return joueurCourantAGagne
-    
