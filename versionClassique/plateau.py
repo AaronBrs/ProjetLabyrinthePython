@@ -451,7 +451,9 @@ def accessibleDist(plateau,ligD,colD,ligA,colA):
         return estMarque
 
     if accessible(plateau,ligD,colD,ligA,colA):
+
         estMarque=True
+        
         calque=Matrice(getNbLignes(plateau),getNbColonnes(plateau))
         setVal(calque,0,0,1)
 
@@ -460,7 +462,9 @@ def accessibleDist(plateau,ligD,colD,ligA,colA):
             estMarque=marquageDirect(calque,plateau)
         
         val=getVal(calque,ligA,colA)
+
         listeCoord=[(ligA,colA)]
+
         while (ligD,colD) != (ligA,colA):
             if ligA - 1 >= 0:
                 val_haut = getVal(calque,ligA-1,colA)
