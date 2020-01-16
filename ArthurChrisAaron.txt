@@ -124,7 +124,7 @@ Pour une matrice : {'Nombre de lignes' : nbLignes, 'Nombre de colonnes' : nbColo
 
 Pour un plateau : {"Plateau":nouveauPlateau,"Carte libre": carteLibre}
 
-Pour le labyrinthe : {'Plateau de jeu' : plateau, 'Liste des joueurs' : listeJoueurs, 'Phase de jeu': phase}
+Pour le labyrinthe : {'Plateau de jeu' : plateau, 'Liste des joueurs' : listeJoueurs, 'Phase de jeu': phase, 'Dernier coup':(direction,rangee)}
 
 
 Pion 1 #Vert
@@ -140,6 +140,15 @@ Problème rencontré
 Conversion de la sortie d'un input en int oubliée.
 Seulement 2 joueurs sur les quatre saisis sont visibles dans les cartes restantes
 Pas de trésor recherché
-Problème de pointeur -> Si tourne carte libre -> les cartes identiques sur le plateu tournent aussi
-Pas de déplacement de joueur possible
+Problème de pointeur -> Si tourne carte libre -> les cartes identiques sur le plateu tournent aussi -> Regler quand la carte libre se met à jour
+Le décalage est effectué mais la carte expulsée ne devient pas la carte libre -> Corrigé en ajoutant la ligne de mis à jour de la carte dans jouerCarte
+Pas de déplacement de joueur possible -> oubli de changerPhase dans executerActionPhase1
 2 trésors à trouver présents sur le plateau en même temps
+Synthétisation des fonctions de listesJoueurs.py
+Problème dans accessible -> Boucle infini -> Déplacement impossible
+duplication du pion quand mouvement effectué
+dans fonction jouerCarte nouvelleDirectionInterdite varaible inutilisée
+1 joueur seulement impossible -> Correction de la fonction prochainTresorJoueur (problème d'indice)
+lorsqu'une case n'est pas accessible -> fonctionne et 
+lorsqueelle est accessible -> boucle infiine ou  redemande une position
+coorrection de jouerCarte et utilisation de la variable noubelleDirectionInterdite dans coupInterdit

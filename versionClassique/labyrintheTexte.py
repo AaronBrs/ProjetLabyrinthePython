@@ -191,9 +191,8 @@ def saisirOrdre(lmt):
             
             if not (coupInterdit(lmt["labyrinthe"],direction,rangee)):
 
-                changerPhase(lmt["labyrinthe"])
-                return (direction,rangee)
                 
+                return (direction,rangee)                
             else :
                 
                 reponse2 = input("Ce coup est interdit. Veuillez choisir un sens parmi : N, E , S , O:\nN pour nord\nE pour Est\nS pour Sud\nO pour Ouest\n")
@@ -201,31 +200,27 @@ def saisirOrdre(lmt):
         else:
             return (-1,-1)
 
-
 def saisirDeplacement(lmt):
     """
     permet de saisir les coordonnées du point d'arrivée visé par le joueur courant
     paramètre: lmt: une vue texte de labyrinthe
     résultat: un couple d'entier (lin,col) indiquant les coordonnées de la case destination. Si l'utilisateur a entré des coordonnées incorrecte la fonction retourne (-1,-1)
     """     
-    ligne= input("Veuillez saisir la ligne :")
-    colonne= input("Veuillez saisir la colonne :")
+    
 
     try:
-        ligne=int(ligne)
-        colonne=int(colonne)
-        if type(ligne)!=type(1) and type(colonne)!=type(1):
-            ligne=-1
-            colonne=-1
-        else :
-            if ligne<0 or ligne>=7 and colonne<0 or colonne>=7:
-                ligne=-1
-                colonne=-1
-    except:
-        ligne=-1
-        colonne=-1
+        ligne= input("Veuillez saisir la ligne :")
+        colonne= input("Veuillez saisir la colonne :")
+        if int(ligne) >= 0 and int(ligne) < 7:
+            if int(colonne) >= 0 and int(colonne) < 7:
+                ligne=int(ligne)
+                colonne=int(colonne)
+                return(ligne,colonne)
+    except ValueError:
+        print("Erreur")
+    return (-1,-1)
 
-    return(ligne,colonne)
+  
         
 # demarre la partie en mode texte
 def demarrer(lmt):

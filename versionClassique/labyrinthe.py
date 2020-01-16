@@ -147,7 +147,7 @@ def prendreJoueurCourant(labyrinthe,lin,col):
                 col: la colonne où se trouve la carte
     la fonction ne retourne rien mais modifie le labyrinthe    
     """
-    prendrePion(getPlateau(labyrinthe)[(getNbColonnes(unPlateauDeJeu)*lin+col)],getJoueurCourant(getListeJoueurs(labyrinthe)))
+    prendrePion(getPlateau(labyrinthe)[(getNbColonnes(getPlateau(ŀabyrinthe))*lin+col)],getJoueurCourant(getListeJoueurs(labyrinthe)))
 
 def poserJoueurCourant(labyrinthe,lin,col):
     """
@@ -163,7 +163,7 @@ def getCarteAJouer(labyrinthe):
     """
     donne la carte à jouer
     paramètre: labyrinthe: le labyrinthe considéré
-    résultat: la carte à jouer    
+    résultat: la carte à jouer
     """
     return labyrinthe["Plateau de jeu"]["Carte libre"]
 
@@ -209,38 +209,36 @@ def jouerCarte(labyrinthe,direction,rangee):
     Cette fonction ne retourne pas de résultat mais mais à jour le labyrinthe
     """
     carteAmovible=getCarteAJouer(labyrinthe)
-    if direction=='S' and not coupInterdit(labyrinthe,direction,rangee):
-        plateau=getPlateau(labyrinthe)
-        nouvelleCarteAJouer=decalageColonneEnHaut(plateau, rangee, carteAmovible)
+    plateau=getPlateau(labyrinthe)
+    if direction=='S':
         nouvelleDirectionInterdite='N'
-        
-
+        if not coupInterdit(labyrinthe,nouvelleDirectionInterdite,rangee):
+            nouvelleCarteAJouer=decalageColonneEnHaut(plateau, rangee, carteAmovible)
     else :
-        if direction=='N' and not coupInterdit(labyrinthe,direction,rangee):
-            plateau=getPlateau(labyrinthe)
-            nouvelleCarteAJouer=decalageColonneEnBas(plateau, rangee, carteAmovible)
+        if direction=='N':
             nouvelleDirectionInterdite='S'
-
+            if not coupInterdit(labyrinthe,nouvelleDirectionInterdite,rangee):
+                nouvelleCarteAJouer=decalageColonneEnBas(plateau, rangee, carteAmovible)
         else :
-            if direction=='E' and not coupInterdit(labyrinthe,direction,rangee):
-                plateau=getPlateau(labyrinthe)
-                nouvelleCarteAJouer=decalageLigneADroite(plateau, rangee, carteAmovible)
+            if direction=='E':
                 nouvelleDirectionInterdite='O'
-
+                if not coupInterdit(labyrinthe,nouvelleDirectionInterdite,rangee):
+                    nouvelleCarteAJouer=decalageLigneADroite(plateau, rangee, carteAmovible)
             else:
-                if direction=='O' and not coupInterdit(labyrinthe,direction,rangee):
-                    plateau=getPlateau(labyrinthe)
-                    nouvelleCarteAJouer=decalageLigneAGauche(plateau, rangee, carteAmovible)
+                if direction=='O':
                     nouvelleDirectionInterdite='E'  
+                    if not coupInterdit(labyrinthe,nouvelleDirectionInterdite,rangee):
+                        nouvelleCarteAJouer=decalageLigneAGauche(plateau, rangee, carteAmovible)
 
     labyrinthe["Dernier coup"] = (direction,rangee)
+    labyrinthe["Plateau de jeu"]["Carte libre"]=nouvelleCarteAJouer
 
 def tournerCarte(labyrinthe,sens='H'): #Fonctionne
     """
     tourne la carte à jouer dans le sens indiqué en paramètre (H horaire A antihoraire)
     paramètres: labyrinthe: le labyrinthe considéré
                 sens: un caractère indiquant le sens dans lequel tourner la carte
-     Cette fonction ne retourne pas de résultat mais mais à jour le labyrinthe    
+    Cette fonction ne retourne pas de résultat mais mais à jour le labyrinthe    
     """
     carteATourner=getCarteAJouer(labyrinthe)
     if sens=='H':
@@ -264,7 +262,7 @@ def getCoordonneesTresorCourant(labyrinthe):
     resultat: les coordonnées du trésor à chercher ou None si celui-ci 
               n'est pas sur le plateau
     """
-    return getCoordonneesTresor(getPlateau(labyrinthe),(getListeJoueurs(labyrinthe)))
+    return getCoordonneesTresor(getPlateau(labyrinthe),tresorCourant(getListeJoueurs(labyrinthe)))
 
 
 def getCoordonneesJoueurCourant(labyrinthe):
@@ -293,20 +291,23 @@ def executerActionPhase1(labyrinthe,action,rangee):
               3 si action et rangee sont des entiers positifs
               4 dans tous les autres cas
     """
-
-    if getPhase(labyrinthe)==1:
-        if action=='T' and not coupInterdit(labyrinthe,action,rangee):
+    actionsValides={'T','N','S','E','O'}
+    actionDirection={'N','S','E','O'}
+    rangeesValides={1,3,5}
+    action = action.upper()
+    if action in actionsValides:
+        if action=='T':
             tournerCarte(labyrinthe)
             return 0
         else :
-            if action=='N' or action=='S' or action=='E' or action=='O' and rangee==1 or rangee==3 or rangee==5 and not coupInterdit(labyrinthe,action,rangee) :
+            if (action in actionDirection) and (rangee in rangeesValides) and not coupInterdit(labyrinthe,action,rangee) :
+                changerPhase(labyrinthe)
                 jouerCarte(labyrinthe,action,rangee)
-                changerPhase(lmt["labyrinthe"])
                 return 1
             else :
                 if coupInterdit(labyrinthe,action,rangee):
                     return 2
-                else:
+                else:                    
                     if action >=0 and rangee>=0 :
                         return 3
                     else :
@@ -337,10 +338,10 @@ def finirTour(labyrinthe):
               1 si le joueur courant a trouvé un trésor mais la partie n'est pas terminée
               2 si le joueur courant a trouvé son dernier trésor (la partie est donc terminée)
     """
-    if nbTresorsRestantsJoueur(getListeJoueurs(labyrinthe),getNumJoueurCourant(labyrinthe))==0: #partie terminée car le nb de tresor restant au joueur courant est a 0
+    if joueurCourantAFini(getListeJoueurs(labyrinthe)): #Partie terminée
         return 2 
     else :
-        if (nbTresorsRestantsJoueur(getListeJoueurs(labyrinthe),getNumJoueurCourant(labyrinthe))==(nbTresorsRestantsJoueur(getListeJoueurs(labyrinthe),getNumJoueurCourant(labyrinthe))-1)) and nbTresorsRestantsJoueur(getListeJoueurs(labyrinthe),getNumJoueurCourant(labyrinthe))>0:
+        if (nbTresorsRestantsJoueur(getListeJoueurs(labyrinthe),getNumJoueurCourant(labyrinthe))==(nbTresorsRestantsJoueur(getListeJoueurs(labyrinthe),getNumJoueurCourant(labyrinthe))-1)) and not joueurCourantAFini(getListeJoueurs(labyrinthe)):
             changerJoueurCourant(getListeJoueurs(labyrinthe))
             changerPhase(labyrinthe)
             return 1
@@ -348,5 +349,3 @@ def finirTour(labyrinthe):
             changerJoueurCourant(getListeJoueurs(labyrinthe))
             changerPhase(labyrinthe)
             return 0
-
-#LabyrintheTest=(Labyrinthe(["Joueur1","Joueur2"],12,0))

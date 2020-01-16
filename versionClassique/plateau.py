@@ -291,7 +291,7 @@ def getCoordonneesTresor(plateau,numTresor):
     for i in range(getNbLignes(plateau)):
         for j in range(getNbColonnes(plateau)): 
             tresor=getTresor(plateau['Liste de valeurs'][(getNbColonnes(plateau)*i+j)])
-            if tresor==numTresor and tresor != 0:
+            if tresor==numTresor:
                 coordonnees=(i,j)
     return coordonnees
 
@@ -482,7 +482,7 @@ def accessibleDist(plateau,ligD,colD,ligA,colA):
                 if val_droite==val-1:
                     colA+=1
                     val=val_droite
-                    listeCoord.append((ligA,ColA))
+                    listeCoord.append((ligA,colA))
         listeCoord.reverse()
         return listeCoord
     else:

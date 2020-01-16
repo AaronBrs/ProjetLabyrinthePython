@@ -146,9 +146,8 @@ def prendrePion(c, pion):
                 pion un entier compris entre 1 et 4
     Cette fonction modifie la carte mais ne retourne rien
     """
-    for indice in range(len(c[5])):
-        if c[5][indice]==pion:
-            c[5].pop(indice)
+    if pion in c[5]:
+        c[5].remove(pion)
 
 def poserPion(c, pion):
     """

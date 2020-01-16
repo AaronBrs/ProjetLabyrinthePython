@@ -40,9 +40,7 @@ def ajouterJoueur(joueurs, joueur):
                 joueur le joueur à ajouter
     cette fonction ne retourne rien mais modifie la liste des joueurs
     """
-    joueurs[1].append(joueur)
-    
-    
+    joueurs[1].append(joueur)    
 
 def initAleatoireJoueurCourant(joueurs):
     """
@@ -55,8 +53,6 @@ def initAleatoireJoueurCourant(joueurs):
     for i in range(nombreDeJoueurs):
         if i == nombreAleatoire:
             joueurs[0]=i
-
-
     
 def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=0):
     """
@@ -73,7 +69,6 @@ def distribuerTresors(joueurs,nbTresors=24, nbTresorMax=0):
     listeDesJoueurs=joueurs[1]
     nombreDeJoueurs=len(listeDesJoueurs)
     nombreDeTresorsParJoueur=nbTresors/nombreDeJoueurs
-    
     listeDesTresorsADistribuer=[]
     for i in range(nbTresors):
         listeDesTresorsADistribuer.append(i+1)
@@ -174,8 +169,8 @@ def prochainTresorJoueur(joueurs,numJoueur):
                 numJoueur le numéro du joueur    
     résultat: le prochain trésor du joueur numJoueur (un entier)
     """
-    if joueurs[numJoueur]['listetresor']!=[]:
-        return joueurs[numJoueur]['listetresor'][0]
+    if joueurs[1][numJoueur-1]['listetresor']!=[]:
+        return joueurs[1][numJoueur-1]['listetresor'][0]
             
 
 def tresorCourant(joueurs):
@@ -185,8 +180,7 @@ def tresorCourant(joueurs):
     résultat: le prochain trésor du joueur courant (un entier)
     """
     indiceJoueurCourant=joueurs[0]
-    listeDesJoueurs=joueurs[1]
-    return prochainTresorJoueur(listeDesJoueurs,indiceJoueurCourant+1)
+    return prochainTresorJoueur(joueurs,indiceJoueurCourant+1)
 
 def joueurCourantAFini(joueurs):
     """
