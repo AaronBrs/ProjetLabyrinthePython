@@ -165,8 +165,7 @@ def nomJoueur(joueurs,numJoueur):
     résultat: le nom du joueur numJoueur
     """
     listeDesJoueurs=joueurs[1]
-    print(numJoueur)
-    return getNom(listeDesJoueurs[numJoueur])
+    return getNom(listeDesJoueurs[numJoueur-1])
 
 def prochainTresorJoueur(joueurs,numJoueur):
     """
@@ -175,8 +174,6 @@ def prochainTresorJoueur(joueurs,numJoueur):
                 numJoueur le numéro du joueur    
     résultat: le prochain trésor du joueur numJoueur (un entier)
     """
-    print(numJoueur)
-    print(joueurs[numJoueur])
     if joueurs[numJoueur]['listetresor']!=[]:
         return joueurs[numJoueur]['listetresor'][0]
             

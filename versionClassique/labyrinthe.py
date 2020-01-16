@@ -68,7 +68,7 @@ def getNbParticipants(labyrinthe): #Fonctionne pas
     paramètre: labyrinthe le labyrinthe considéré
     résultat: le nombre de joueurs de la partie
     """
-    return len(getListeJoueurs(labyrinthe))
+    return len(getListeJoueurs(labyrinthe)[1])
 
 def getNomJoueurCourant(labyrinthe):
     """
