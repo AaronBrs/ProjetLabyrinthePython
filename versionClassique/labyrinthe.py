@@ -222,16 +222,16 @@ def jouerCarte(labyrinthe,direction,rangee):
             nouvelleDirectionInterdite='S'
 
         else :
-            if direction=='O' and not coupInterdit(labyrinthe,direction,rangee):
+            if direction=='E' and not coupInterdit(labyrinthe,direction,rangee):
                 plateau=getPlateau(labyrinthe)
                 nouvelleCarteAJouer=decalageLigneADroite(plateau, rangee, carteAmovible)
-                nouvelleDirectionInterdite='E'
+                nouvelleDirectionInterdite='O'
 
             else:
-                if direction=='E' and not coupInterdit(labyrinthe,direction,rangee):
+                if direction=='O' and not coupInterdit(labyrinthe,direction,rangee):
                     plateau=getPlateau(labyrinthe)
                     nouvelleCarteAJouer=decalageLigneAGauche(plateau, rangee, carteAmovible)
-                    nouvelleDirectionInterdite='O'  
+                    nouvelleDirectionInterdite='E'  
 
     labyrinthe["Dernier coup"] = (direction,rangee)
 
@@ -301,6 +301,7 @@ def executerActionPhase1(labyrinthe,action,rangee):
         else :
             if action=='N' or action=='S' or action=='E' or action=='O' and rangee==1 or rangee==3 or rangee==5 and not coupInterdit(labyrinthe,action,rangee) :
                 jouerCarte(labyrinthe,action,rangee)
+                changerPhase(lmt["labyrinthe"])
                 return 1
             else :
                 if coupInterdit(labyrinthe,action,rangee):

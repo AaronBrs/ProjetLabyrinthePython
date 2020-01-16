@@ -162,16 +162,15 @@ def saisirOrdre(lmt):
               c'est à dire le numéro de la ligne ou de la colonne où insérer la carte
               si l'ordre saisi n'est pas valide la focntion retourne (-1,-1)
     """
+
     reponse = input("Que souhaitez-vous faire ?\n1--- Tapez 1 pour tourner la carte\n2--- Tapez 2 pour insérer la carte\n")
     
     if reponse == "1":
-    
         return ('T','T')
         
     else:
         
         if reponse == "2":
-            
             reponse2 = input("Veuillez choisir un sens parmi : N, E , S , O:\nN pour nord\nE pour Est\nS pour Sud\nO pour Ouest\n")
             
             while reponse2 not in ["N","E","S","O"] :
@@ -190,8 +189,9 @@ def saisirOrdre(lmt):
                 
             rangee = reponse3
             
-            if (coupInterdit(lmt["labyrinthe"],direction,rangee)) == False :
-                
+            if not (coupInterdit(lmt["labyrinthe"],direction,rangee)):
+
+                changerPhase(lmt["labyrinthe"])
                 return (direction,rangee)
                 
             else :

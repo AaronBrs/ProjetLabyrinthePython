@@ -51,8 +51,7 @@ def getVal(matrice,ligne,colonne):
                 colonne le numéro de la colonne (en commençant par 0)
     """
     return matrice['Liste de valeurs'][getNbColonnes(matrice)*ligne+colonne]
-matriceTest=Matrice(3,3)
-getVal(matriceTest,1,1)
+
 def setVal(matrice,ligne,colonne,valeur):
     """
     met la valeur dans la case se trouve en (ligne,colonne) de la matrice
@@ -153,7 +152,7 @@ def decalageColonneEnBas(matrice, numCol, nouvelleValeur=0):
     print(valeurexpulsee)
     return valeurexpulsee
 
-matriceTest=Matrice(3,3)
-print(matriceTest)
-decalageColonneEnBas(matriceTest,1,9)
-print(matriceTest)
+#matriceTest=Matrice(3,3)
+#print(matriceTest)
+#decalageColonneEnBas(matriceTest,1,9)
+#print(matriceTest)

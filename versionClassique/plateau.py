@@ -306,8 +306,8 @@ def getCoordonneesJoueur(plateau,numJoueur):
     coordonnees=None
     for i in range(getNbLignes(plateau)):
         for j in range(getNbColonnes(plateau)): 
-            listePion=getListePion(plateau['Liste de valeurs'][(getNbColonnes(plateau)*i+j)])
-            if joueur in listePion:
+            listePion=getListePions(plateau['Liste de valeurs'][(getNbColonnes(plateau)*i+j)])
+            if numJoueur in listePion:
                 coordonnees=(i,j)
     return coordonnees
 
@@ -411,43 +411,36 @@ def accessibleDist(plateau,ligD,colD,ligA,colA):
               de départ et la case d'arrivée
     """
     def marquageDirect(calque,plateau):
-        
         estMarque=False
-
         for lig in range(getNbLignes(plateau)):#Pour chaque ligne de notre labyrinthe
-
             for col in range(getNbColonnes(plateau)):#Pour chaque case de la ligne
-
-                if getVal(calque,lig,col)==0:#Case susceptible d'être marqué 
-                    
+                if getVal(calque,lig,col)==0:#Case susceptible d'être marqué
                     #Vérification des 4 voisins
-
-                    val=getVal(calque,lig,col-1)
-                    if col-1 >= 0 and getVal(calque,lig,col-1)==1:#Case de gauche
-                        if passageEst(getVal(plateau,lig,col),getVal(plateau,lig,col-1)):
-                            setVal(calque,lig,col,val+1)
-                            estMarque=True
-                    else:
-
+                   
+                    if col-1 >= 0:
+                        val=getVal(calque,lig,col-1)
+                        if val>0:#Case de gauche
+                            if passageEst(getVal(plateau,lig,col),getVal(plateau,lig,col-1)):
+                                setVal(calque,lig,col,val+1)
+                                estMarque=True
+                    if lig-1 >= 0:
                         val=getVal(calque,lig-1,col)
-                        if lig-1 >= 0 and getVal(calque,lig-1,col)==1:
+                        if val>0:
                             if passageNord(getVal(plateau,lig,col),getVal(plateau,lig-1,col)):
                                 setVal(calque,lig,col,val+1)
                                 estMarque=True
-                        else:
-                            
-                            val=getVal(calque,lig,col+1)
-                            if col+1 < getNbColonnes(plateau) and getVal(calque,lig,col+1)==1:
-                                if passageOuest(getVal(plateau,lig,col),getVal(plateau,lig,col+1)):
-                                    setVal(calque,lig,col,val+1)
-                                    estMarque=True
-                            else:
-                                
-                                val=getVal(calque,lig+1,col)
-                                if lig+1 < getNbLignes(plateau) and getVal(calque,lig+1,col)==1:
-                                    if passageSud(getVal(plateau,lig,col),getVal(plateau,lig+1,col)):
-                                        setVal(calque,lig,col,val+1)
-                                        estMarque=True
+                    if col+1 < getNbColonnes(plateau):
+                        val=getVal(calque,lig,col+1)
+                        if val>0 :
+                            if passageOuest(getVal(plateau,lig,col),getVal(plateau,lig,col+1)):
+                                setVal(calque,lig,col,val+1)
+                                estMarque=True
+                    if lig+1 < getNbLignes(plateau):
+                        val=getVal(calque,lig+1,col)
+                        if val>0:
+                            if passageSud(getVal(plateau,lig,col),getVal(plateau,lig+1,col)):
+                                setVal(calque,lig,col,val+1)
+                                estMarque=True
         return estMarque
 
     if accessible(plateau,ligD,colD,ligA,colA):
@@ -478,18 +471,18 @@ def accessibleDist(plateau,ligD,colD,ligA,colA):
                     ligA+=1
                     val=val_bas
                     listeCoord.append((ligA,colA))
-            if colA - 1 < getNbColonnes(calque):
+            if colA - 1 >=0:
                 val_gauche=getVal(calque,ligA,colA-1)
                 if val_gauche==val-1:
                     colA-=1
                     val=val_gauche
                     listeCoord.append((ligA,colA))
-            if colA + 1 < getNbLignes(calque):
+            if colA + 1 < getNbColonnes(calque):
                 val_droite=getVal(calque,ligA,colA+1)
                 if val_droite==val-1:
                     colA+=1
                     val=val_droite
-                    listeCoords.append((ligA,ColA))
+                    listeCoord.append((ligA,ColA))
         listeCoord.reverse()
         return listeCoord
     else:
