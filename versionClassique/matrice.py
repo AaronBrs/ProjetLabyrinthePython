@@ -104,10 +104,10 @@ def decalageLigneADroite(matrice, numLig, nouvelleValeur=0):
     matrice['Liste de valeurs'].insert(indicefinligne,nouvelleValeur)
     return valeurexpulsee
 
-matriceTest=Matrice(3,3)
-print(matriceTest)
-decalageLigneADroite(matriceTest,1,9)
-print(matriceTest)
+#matriceTest=Matrice(3,3)
+#print(matriceTest)
+#decalageLigneADroite(matriceTest,1,9)
+#print(matriceTest)
 
 def decalageColonneEnHaut(matrice, numCol, nouvelleValeur=0):
     """
@@ -142,7 +142,7 @@ def decalageColonneEnBas(matrice, numCol, nouvelleValeur=0):
     """
 
     valeurexpulsee=getVal(matrice,getNbLignes(matrice)-1,numCol)#Sauvegarde de la valeur expulsée
-    matrice['Liste de valeurs'].pop(getNbLignes(matrice)*getNbLignes(matrice)-1+numCol)#Expulsion de la valeur
+    matrice['Liste de valeurs'].pop(getNbLignes(matrice)*(getNbLignes(matrice)-1)+numCol)#Expulsion de la valeur
     
     for i in range(getNbLignes(matrice)-1,0,-1):#Boucle de 8 à 1
         valeur=getVal(matrice,i-1,numCol)#Valeur de la ligne du dessus
@@ -150,4 +150,10 @@ def decalageColonneEnBas(matrice, numCol, nouvelleValeur=0):
         matrice['Liste de valeurs'].pop(getNbColonnes(matrice)*(i-1)+numCol)#Suppression de la valeur précédent
         
     matrice['Liste de valeurs'].insert(numCol,nouvelleValeur)#Insertion de la nouvelle valeur sur la premiere ligne
+    print(valeurexpulsee)
     return valeurexpulsee
+
+matriceTest=Matrice(3,3)
+print(matriceTest)
+decalageColonneEnBas(matriceTest,1,9)
+print(matriceTest)

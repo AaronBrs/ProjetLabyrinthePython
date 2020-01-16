@@ -54,13 +54,21 @@ def getPlateau(labyrinthe): #Fonctionne
     """
     return labyrinthe['Plateau de jeu']["Plateau"]
 
-def getNbParticipants(labyrinthe): #Fonctionne
+def getListeJoueurs(labyrinthe):
+    """
+    retourne la liste joueur structures qui gèrent les joueurs et leurs trésors
+    paramètre: labyrinthe le labyrinthe considéré
+    résultat: les joueurs sous la forme de la structure implémentée dans listeJoueurs.py    
+    """
+    return labyrinthe["Liste des joueurs"]
+
+def getNbParticipants(labyrinthe): #Fonctionne pas
     """
     retourne le nombre de joueurs engagés dans la partie
     paramètre: labyrinthe le labyrinthe considéré
     résultat: le nombre de joueurs de la partie
     """
-    return len(labyrinthe["Liste des joueurs"])
+    return len(getListeJoueurs(labyrinthe))
 
 def getNomJoueurCourant(labyrinthe):
     """
@@ -68,7 +76,7 @@ def getNomJoueurCourant(labyrinthe):
     paramètre: labyrinthe le labyrinthe considéré
     résultat: le nom du joueurs courant
     """
-    return nomJoueurCourant(labyrinthe["Liste des joueurs"])
+    return nomJoueurCourant(getListeJoueurs(labyrinthe))
 
 def getNumJoueurCourant(labyrinthe):
     """
@@ -76,7 +84,7 @@ def getNumJoueurCourant(labyrinthe):
     paramètre: labyrinthe le labyrinthe considéré
     résultat: le numero du joueurs courant
     """
-    return numJoueurCourant(labyrinthe["Liste des joueurs"])
+    return numJoueurCourant(getListeJoueurs(labyrinthe))
 
 def getPhase(labyrinthe):
     """
@@ -108,21 +116,13 @@ def getNbTresors(labyrinthe):
     """    
     nombreDeTresorsSurLePlateau = 0
     
-    listeJoueurs = labyrinthe['Liste des joueurs']
+    listeJoueurs = labyrinthe['Liste des joueurs'][1]
     
     for joueur in listeJoueurs:
         nb = len(joueur['listeTresor'])
         nombreDeTresorsSurLePlateau+=nb
     
     return nombreDeTresorsSurLePlateau 
-
-def getListeJoueurs(labyrinthe):
-    """
-    retourne la liste joueur structures qui gèrent les joueurs et leurs trésors
-    paramètre: labyrinthe le labyrinthe considéré
-    résultat: les joueurs sous la forme de la structure implémentée dans listeJoueurs.py    
-    """
-    return labyrinthe["Liste des joueurs"]
 
 
 def enleverTresor(labyrinthe,lin,col,numTresor):
@@ -147,7 +147,7 @@ def prendreJoueurCourant(labyrinthe,lin,col):
                 col: la colonne où se trouve la carte
     la fonction ne retourne rien mais modifie le labyrinthe    
     """
-    prendrePion(getPlateau(labyrinthe)[(getNbColonnes(unPlateauDeJeu)*lin+col)],getJoueurCourant(labyrinthe["Liste des joueurs"]))
+    prendrePion(getPlateau(labyrinthe)[(getNbColonnes(unPlateauDeJeu)*lin+col)],getJoueurCourant(getListeJoueurs(labyrinthe)))
 
 def poserJoueurCourant(labyrinthe,lin,col):
     """
@@ -157,7 +157,7 @@ def poserJoueurCourant(labyrinthe,lin,col):
                 col: la colonne où se trouve la carte
     la fonction ne retourne rien mais modifie le labyrinthe     
     """
-    poserPion(getPlateau(ŀabyrinthe)[(getNbColonnes(getPlateau(ŀabyrinthe))*lin+col)],getJoueurCourant(labyrinthe["Liste des joueurs"]))
+    poserPion(getPlateau(ŀabyrinthe)[(getNbColonnes(getPlateau(ŀabyrinthe))*lin+col)],getJoueurCourant(getListeJoueurs(labyrinthe)))
 
 def getCarteAJouer(labyrinthe):
     """
@@ -209,29 +209,29 @@ def jouerCarte(labyrinthe,direction,rangee):
     Cette fonction ne retourne pas de résultat mais mais à jour le labyrinthe
     """
     carteAmovible=getCarteAJouer(labyrinthe)
-    if direction=='N' and not coupInterdit(labyrinthe,direction,rangee):
+    if direction=='S' and not coupInterdit(labyrinthe,direction,rangee):
         plateau=getPlateau(labyrinthe)
         nouvelleCarteAJouer=decalageColonneEnHaut(plateau, rangee, carteAmovible)
-        nouvelleDirectionInterdite='S'
+        nouvelleDirectionInterdite='N'
         
 
     else :
-        if direction=='S' and not coupInterdit(labyrinthe,direction,rangee):
+        if direction=='N' and not coupInterdit(labyrinthe,direction,rangee):
             plateau=getPlateau(labyrinthe)
             nouvelleCarteAJouer=decalageColonneEnBas(plateau, rangee, carteAmovible)
-            nouvelleDirectionInterdite='N'
+            nouvelleDirectionInterdite='S'
 
         else :
-            if direction=='E' and not coupInterdit(labyrinthe,direction,rangee):
+            if direction=='O' and not coupInterdit(labyrinthe,direction,rangee):
                 plateau=getPlateau(labyrinthe)
                 nouvelleCarteAJouer=decalageLigneADroite(plateau, rangee, carteAmovible)
-                nouvelleDirectionInterdite='O'
+                nouvelleDirectionInterdite='E'
 
             else:
-                if direction=='O' and not coupInterdit(labyrinthe,direction,rangee):
+                if direction=='E' and not coupInterdit(labyrinthe,direction,rangee):
                     plateau=getPlateau(labyrinthe)
                     nouvelleCarteAJouer=decalageLigneAGauche(plateau, rangee, carteAmovible)
-                    nouvelleDirectionInterdite='E'  
+                    nouvelleDirectionInterdite='O'  
 
     labyrinthe["Dernier coup"] = (direction,rangee)
 
@@ -348,5 +348,4 @@ def finirTour(labyrinthe):
             changerPhase(labyrinthe)
             return 0
 
-LabyrintheTest=(Labyrinthe(["Joueur1","Joueur2"],12,0)
-print(getCoordonneesTresor(getPlateau(LabyrintheTest)),1))
+#LabyrintheTest=(Labyrinthe(["Joueur1","Joueur2"],12,0))

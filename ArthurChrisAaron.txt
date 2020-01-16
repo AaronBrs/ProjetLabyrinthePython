@@ -117,7 +117,8 @@ Pour une carte : [MurNord, MurEst, MurSud, MurOuest, n°trésor, [n°joueur 1, n
 
 Pour un joueur : {"Nom du joueur": NomDuJoueur, "Liste de  trésors" : [n°trésor 1, n°trésor 2, n°trésor 3, ...]}
 
-Pour une liste de joueurs : [{'Nom du joueur' :NomDuJoueur1, "Liste de trésors" : [n°trésor 1, n°trésor 2, n°trésor 3, ...]}, {'Nom du joueur' : NomDuJoueur2, 'Liste de trésors' : [n°trésor 1, n°trésor 2, n°trésor 3, ...]}, ... ]
+Pour une liste de joueurs : 
+[0,[{'Nom du joueur' :NomDuJoueur1, "Liste de trésors" : [n°trésor 1, n°trésor 2, n°trésor 3, ...]}, {'Nom du joueur' : NomDuJoueur2, 'Liste de trésors' : [n°trésor 1, n°trésor 2, n°trésor 3, ...]}, ... ]]
 
 Pour une matrice : {Nombre de lignes : nbLignes, 'Nombre de colonnes' : nbColonnes, 'Liste de valeurs' : [0,0,0,0,0,0,...]}
 
@@ -137,3 +138,8 @@ getCoordonneesTresorCourant() : Ajout de la clé Liste de valeurs pour débugger
 
 Problème rencontré
 Conversion de la sortie d'un input en int oubliée.
+Seulement 2 joueurs sur les quatre saisis sont visibles dans les cartes restantes
+Pas de trésor recherché
+Problème de pointeur -> Si tourne carte libre -> les cartes identiques sur le plateu tournent aussi
+Pas de déplacement de joueur possible
+Toujours le tour du même joueur
